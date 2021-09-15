@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:myApp.properties"/>
+
+    <!--Создаем myPet и myPerson -->
+    <bean id="myPet"
+          class="com.springCourse.springIntroduction.CatAnnotation">
+    </bean>
+
+    <!--Видимость задается строкой scope. По умолчанию синглтон
+        Два начальных скопа это синглтон и прототип-->
+
+    <!-- init and destroy methods ДЕСТРОЙ не исполняется для прототипа
+        Возвращаемый тип(но он все равно не используется) и тип доступа может быть любой-->
+    <bean id="myPerson"
+          scope="singleton"
+          class="com.springCourse.springIntroduction.Person"
+          init-method="init"
+          destroy-method="destroy">
+        <!--Создаем Person с помощью конструктора
+            <constructor-arg ref="myPet"/>-->
+
+
+        <!--Создаем Person с помощью сеттера.
+            Имя сеттера определяется как имя метода без set
+                    и остальная часть с маленькой буквы-->
+        <property name="pet" ref="myPet"/>
+        <!--Добавляем поля через сеттеры (значения из пропертис)-->
+        <!--Для пропертис нужно указать путь к файлу-->
+        <property name="surname" value="${person.surname}"/>
+        <property name="age" value="${person.age}"/>
+
+    </bean>
+
+
+</beans>
