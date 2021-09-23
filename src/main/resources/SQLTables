@@ -1,0 +1,50 @@
+CREATE TABLE `employees` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(15) DEFAULT NULL,
+  `surname` varchar(25) DEFAULT NULL,
+  `department` varchar(20) DEFAULT NULL,
+  `salary` int DEFAULT NULL,
+  `details_id` int DEFAULT NULL,
+  `department_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_employees_1_idx` (`details_id`),
+  KEY `fk_employees_2_idx` (`department_id`),
+  CONSTRAINT `fk_employees_1` FOREIGN KEY (`details_id`) REFERENCES `details` (`id`),
+  CONSTRAINT `fk_employees_2` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`)
+)
+
+CREATE TABLE `details` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `city` varchar(15) DEFAULT NULL,
+  `phone_number` varchar(25) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+
+CREATE TABLE `departments` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(15) DEFAULT NULL,
+  `max_salary` int DEFAULT NULL,
+  `min_salary` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+----------------------------------------------------------------------------
+CREATE TABLE children (
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(15),
+  age int,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE section(
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(15),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE child_section (
+  child_id int NOT NULL,
+  section_id int NOT NULL,
+  PRIMARY KEY (child_id, section_id),
+  FOREIGN KEY (child_id) REFERENCES children(id),
+  FOREIGN KEY (section_id) REFERENCES section(id));
